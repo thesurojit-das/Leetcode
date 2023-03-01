@@ -1,0 +1,24 @@
+class Solution:
+    def minimumFuelCost(self, roads: List[List[int]], seats: int) -> int:
+        def dfs(node: int, parent: int = -1) -> int:
+            cities = 1
+
+            for nei in graph[node]:
+                if nei != parent:
+                    cities += dfs(nei, node)
+            
+            if node:
+                self.answer += ceil(cities / seats)
+            
+            return cities
+
+        graph = defaultdict(list)
+        self.answer = 0
+
+        for x, y in roads:
+            graph[x].append(y)
+            graph[y].append(x)
+        
+        dfs(0)
+
+        return self.answer
