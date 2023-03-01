@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
+
+        vector<TreeNode*> res;
+        unordered_map<string, int> map;
+        dfs(root, map, res);
+        return res;
+    }
+
+private:
+    string dfs(TreeNode* root, unordered_map<string, int>& map,
+               vector<TreeNode*>& res){
+
+        if(!root)
+            return "#";
+
+        string left = dfs(root->left, map, res);
+        string right = dfs(root->right, map, res);
+        string hashcode = to_string(root->val) + "," + left + "," + right;
+
+        if(map[hashcode] == 1)
+            res.push_back(root);
+        map[hashcode] ++;
+        return hashcode;
+    }
+};
