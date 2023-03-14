@@ -1,0 +1,27 @@
+class Solution {
+public:
+    
+    void solve(TreeNode* root, int ans, int &fans)
+    {
+        if(!root)
+            return;
+        
+        if(!root->left && !root->right)
+        {
+            ans = ans *10 + root->val;
+            fans +=ans;
+            return;
+        }
+        
+        ans = ans *10 + root->val;
+        solve(root->left, ans, fans);
+        solve(root->right, ans,fans);
+    }
+    int sumNumbers(TreeNode* root) 
+    {
+        int ans =0;
+        int fans = 0;
+        solve(root, ans, fans);
+        return fans;
+    }
+};
