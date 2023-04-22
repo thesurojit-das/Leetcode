@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int longestPalindromeSubstring(string& s, int i, int j) {
+        if (i > j)
+            return 0;
+        else if (i == j)
+            return 1;
+        else if (s[i] == s[j])
+            return 2 + longestPalindromeSubstring(s, i+1, j-1);
+        else
+            return max(longestPalindromeSubstring(s, i+1, j), longestPalindromeSubstring(s, i, j-1));
+    }
+    int minInsertions(string s) {
+        int n = s.length();
+        int minNumSteps = n - longestPalindromeSubstring(s, 0, n-1);
+        return minNumSteps;
+    }
+};
