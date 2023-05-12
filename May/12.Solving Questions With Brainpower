@@ -1,0 +1,16 @@
+long long mostPoints<vector<int>>& Q) {
+    int len = Q.size();
+    vector<long long> dp(len);
+    dp[len-1] = Q[len-1][0];
+    for (int i = len-2; i >= 0; i--) {
+        long long not = dp[i+1];
+        long long take = 0;
+        if (i+Q[i][1]+1 < len) {
+            take = Q[i][0] + dp[i+Q[i][1]+1];
+        } else {
+            take = Q[i][0];
+        }
+        dp[i] = max(take, not);
+    }
+    return dp[0];
+}
